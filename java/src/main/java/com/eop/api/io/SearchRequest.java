@@ -15,20 +15,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "OfferSearchCriteria")
 public class SearchRequest {
 
-    private String platform;
     private String keywords;
     private String language;
     private Integer itemsPerPage;
-    private List<String> category; 
+    private List<String> category;
     private String merchantName;
     List<String> tag;
     List<String> tagCategory;
     List<String> tagTier;
     private List<Geo> sourceGeos;
     private String targetFis;
-    private List<String>productCode; 
-    
-    
+    private List<String> productCode;
+    private List<Geo> targetGeos;
+    private String program;
+    private Integer range;
+
+    @XmlElement(name = "Program")
+    public String getProgram() {
+        return program;
+    }
+
+    public void setProgram(String program) {
+        this.program = program;
+    }
+
     /**
      * @return the language
      */
@@ -42,21 +52,6 @@ public class SearchRequest {
      */
     public void setLanguage(String language) {
         this.language = language;
-    }
-
-    /**
-     * @return the platform
-     */
-    @XmlElement(name = "Platform")
-    public String getPlatform() {
-        return platform;
-    }
-
-    /**
-     * @param platform the platform to set
-     */
-    public void setPlatform(String platform) {
-        this.platform = platform;
     }
 
     /**
@@ -179,35 +174,53 @@ public class SearchRequest {
         this.tagTier = tagTier;
     }
 
-	/**
-	 * @return the targetFis
-	 */
+    /**
+     * @return the targetFis
+     */
     @XmlElement(name = "TargetFis")
-	public String getTargetFis() {
-		return targetFis;
-	}
+    public String getTargetFis() {
+        return targetFis;
+    }
 
-	/**
-	 * @param targetFis the targetFis to set
-	 */
-	public void setTargetFis(String targetFis) {
-		this.targetFis = targetFis;
-	}
+    /**
+     * @param targetFis the targetFis to set
+     */
+    public void setTargetFis(String targetFis) {
+        this.targetFis = targetFis;
+    }
 
-	/**
-	 * @return the productCode
-	 */
-	@XmlElement(name = "ProductName")
-	public List<String> getProductCode() {
-		return productCode;
-	}
+    /**
+     * @return the productCode
+     */
+    @XmlElement(name = "ProductName")
+    public List<String> getProductCode() {
+        return productCode;
+    }
 
-	/**
-	 * @param productCode the productCode to set
-	 */
-	public void setProductCode(List<String> productCode) {
-		this.productCode = productCode;
-	}
+    /**
+     * @param productCode the productCode to set
+     */
+    public void setProductCode(List<String> productCode) {
+        this.productCode = productCode;
+    }
 
+    @XmlElementWrapper(name = "TargetGeos")
+    @XmlElement(name = "Geo")
+    public List<Geo> getTargetGeos() {
+        return targetGeos;
+    }
+
+    public void setTargetGeos(List<Geo> targetGeos) {
+        this.targetGeos = targetGeos;
+    }
     
+    @XmlElement(name = "Range")
+	public Integer getRange() {
+		return range;
+	}
+
+	public void setRange(Integer range) {
+		this.range = range;
+	}
+
 }

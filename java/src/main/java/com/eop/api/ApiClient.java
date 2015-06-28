@@ -58,7 +58,7 @@ public class ApiClient {
     
     public String getRecentOffers(Integer hours) {
         
-        String offerDetailsURL = (isProduction ? prodRequestBaseURL : sandboxRequestBaseURL ) + "recentoffers/" + hours;
+        String offerDetailsURL = (isProduction ? prodRequestBaseURL : sandboxRequestBaseURL ) + "recentofferids/" + hours;
         StringBuffer responseBuffer = new StringBuffer();
 
         try {

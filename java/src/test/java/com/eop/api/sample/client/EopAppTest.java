@@ -3,6 +3,7 @@ package com.eop.api.sample.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.eop.api.ApiClient;
@@ -24,28 +25,36 @@ public class EopAppTest {
     public void testGetOfferDetails() {
         String offerId = "afe5c6f2-efa5-4e68-84f0-6aa86738a32b";
         String response = apiClient.getOfferDetails(offerId);
+        Assert.assertNotNull(response);
+        Assert.assertTrue(response.contains("<ResponseCode>200</ResponseCode>"));
         System.out.println(response);
     }
     
     @Test
     public void testGetRedemptionCodes() {
-        String offerId = "ec71320f-9f5b-458d-9aba-68219ba6c6ce";
+        String offerId = "d4f9fccf-31be-442e-bdaf-44aaeb55791d";
         String response = apiClient.getRedemptionCodes(offerId);
+        Assert.assertNotNull(response);
+        Assert.assertTrue(response.contains("<GetRedemptionCodesResponse>"));
         System.out.println(response);
     }
 
     @Test
     public void testGetOfferInventory() {
-        String offerId = "fe632773-01ce-4d8d-b348-78bc4a1863fc";
+        String offerId = "d4f9fccf-31be-442e-bdaf-44aaeb55791d";
         String response = apiClient.getOfferInventory(offerId);
+        Assert.assertNotNull(response);
+        Assert.assertTrue(response.contains("<ResponseCode>200</ResponseCode>"));
         System.out.println(response);
     }
     
     @Test
     public void testUpdateOfferInventory() {
-        String offerId = "A96e189d-6e85-45d1-8bda-7221b0f04dc6";
+        String offerId = "d4f9fccf-31be-442e-bdaf-44aaeb55791d";
         int redeemedQuantity = 1;
         String response = apiClient.updateInventory(offerId, redeemedQuantity);
+        Assert.assertNotNull(response);
+        Assert.assertTrue(response.contains("<ResponseCode>200</ResponseCode>"));
         System.out.println(response);
     }
 
@@ -54,6 +63,8 @@ public class EopAppTest {
     public void testGetRecentOffers() {
         Integer hours = 24;
         String response = apiClient.getRecentOffers(hours);
+        Assert.assertNotNull(response);
+        Assert.assertTrue(response.contains("<GetRecentOfferIdsResponse>"));
         System.out.println(response);
     }
     
@@ -62,10 +73,11 @@ public class EopAppTest {
         
       String searchKey = "limited";  
       SearchRequest searchRequest = new SearchRequest();
-      searchRequest.setPlatform("priceless");
+      searchRequest.setProgram("priceless");
       searchRequest.setKeywords(searchKey);
 
       String response = apiClient.getSearchOffers(searchRequest);
+      Assert.assertTrue(response.contains("<ResponseCode>200</ResponseCode>"));
       System.out.println(response);
     }
 
@@ -81,11 +93,12 @@ public class EopAppTest {
       
       
       SearchRequest searchRequest = new SearchRequest();
-      searchRequest.setPlatform("priceless");
+      searchRequest.setProgram("priceless");
       searchRequest.setKeywords(searchKey);
       searchRequest.setProductCode(productCode);
 
       String response = apiClient.getSearchOffers(searchRequest);
+      Assert.assertTrue(response.contains("<ResponseCode>200</ResponseCode>"));
       System.out.println(response);
     }
     
@@ -98,11 +111,12 @@ public class EopAppTest {
       tagCategory.add("SHOP");
       
       SearchRequest searchRequest = new SearchRequest();
-      searchRequest.setPlatform("priceless");
+      searchRequest.setProgram("priceless");
       searchRequest.setKeywords(searchKey);
       searchRequest.setTagCategory(tagCategory);
 
       String response = apiClient.getSearchOffers(searchRequest);
+      Assert.assertTrue(response.contains("<ResponseCode>200</ResponseCode>"));
       System.out.println(response);
     }
     
@@ -115,10 +129,11 @@ public class EopAppTest {
       sourceGeos.add(geo);
       
       SearchRequest searchRequest = new SearchRequest();
-      searchRequest.setPlatform("priceless");
+      searchRequest.setProgram("priceless");
       searchRequest.setSourceGeos(sourceGeos);
 
       String response = apiClient.getSearchOffers(searchRequest);
+      Assert.assertTrue(response.contains("<ResponseCode>200</ResponseCode>"));
       System.out.println(response);
     }
     
@@ -132,31 +147,34 @@ public class EopAppTest {
       
       
       SearchRequest searchRequest = new SearchRequest();
-      searchRequest.setPlatform("priceless");
+      searchRequest.setProgram("priceless");
       searchRequest.setSourceGeos(sourceGeos);
       searchRequest.setMerchantName("GILT");
       
       String response = apiClient.getSearchOffers(searchRequest);
+      Assert.assertTrue(response.contains("<ResponseCode>200</ResponseCode>"));
       System.out.println(response);
     }
     
     @Test
-    public void testSearchOffers1() {
+    public void testNearBySearch() {
         
       List<Geo> sourceGeos = new ArrayList<Geo>();
       Geo geo = new Geo();
-      geo.setCity(new GeoAttribute("newyork"));
+ 
+      geo.setLatitude(40.7127F);
+      geo.setLongitude(74.0059F);
       sourceGeos.add(geo);
       
-      
       SearchRequest searchRequest = new SearchRequest();
-      searchRequest.setPlatform("priceless");
+      searchRequest.setProgram("priceless");
       searchRequest.setSourceGeos(sourceGeos);
-      searchRequest.setMerchantName("GILT");
+      searchRequest.setRange(50);
       
       OfferApi api = new OfferApi();
       
       List<Offer> response = api.searchOffers(searchRequest);
-      System.out.println(response.get(0).getMedia().getOfferImageUrl());
+      Assert.assertNotNull(response);
+
     }
 }
